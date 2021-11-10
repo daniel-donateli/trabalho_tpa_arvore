@@ -12,9 +12,9 @@ Aluno *pesquisar(Node *r, int matricula)
 	} else if(r->valor->matricula == matricula) {
 		return r->valor;
 	} else if(r->valor->matricula < matricula) {
-		return pesquisar(r->esquerda, matricula);
-	} else {
 		return pesquisar(r->direita, matricula);
+	} else {
+		return pesquisar(r->esquerda, matricula);
 	}
 	/*
 	if (r ==NULL)
