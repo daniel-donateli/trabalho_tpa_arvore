@@ -17,14 +17,12 @@ int main(int argc, char *argv[])
 	
 	a = new_aluno(3, "Teste 3", 100);
 	raiz = inserir(raiz, a);
-
-
-	a = pesquisar(raiz, 3);
-	if(a != NULL) PRINT_ALUNO(a);
-	else{
-		printf("NULO\n");	
-	}
 	
 	//print_em_ordem(raiz);
+
+	//raiz = remover(raiz, 1);
+
+	print_em_ordem(raiz);
+	printf("Altura: %d\n", altura(raiz));
 	return 0;
 }

@@ -9,6 +9,12 @@ OBJS=main.o menu.o file_reader.o arvore.o
 all: $(OBJS)
 	${CC} ${CFLAGS} -I${INCLUDE} -o main.exe ${OBJS}
 
+debug: CFLAGS = -DDEBUG -g
+
+debug: CC = gcc
+
+debug: all
+
 clean:
 	-rm -f *.o 
 

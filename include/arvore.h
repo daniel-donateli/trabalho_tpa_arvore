@@ -16,4 +16,8 @@ Node *inserir(Node *r, Aluno *a);
 
 Aluno *pesquisar(Node *r, int matricula);
 
+Node *remover(Node *r, int matricula);
+
+int altura(Node *r);
+
 void print_em_ordem(Node *r);

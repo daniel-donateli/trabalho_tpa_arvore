@@ -1,5 +1,7 @@
 #include <arvore.h>
 
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+
 void init_arvore(Node **r)
 {
 	*r = NULL;
@@ -16,16 +18,6 @@ Aluno *pesquisar(Node *r, int matricula)
 	} else {
 		return pesquisar(r->esquerda, matricula);
 	}
-	/*
-	if (r ==NULL)
-        return 0;
-    else if(r->info == info)
-        return 1;
-    else if (info < r->info)
-        return pesquisar(r->esq, info);
-    else
-        return pesquisar(r->dir, info);
-	*/
 }
 
 Node *inserir(Node *r, Aluno *a)
@@ -45,28 +37,60 @@ Node *inserir(Node *r, Aluno *a)
 			r->direita = inserir(r->direita, a);
 		}
 	}
-
-/*
-	else
-        {
-        //Se a raiz não for nula e a informação for menor que a armazenada na raiz
-        //vamos inserir na sub-arvore esquerda
-        if (info < (*r)->info)
-        {
-            //Note que passamos o endereço do ponteiro para a subarvore esquerda pois
-            //o método espera receber ponteiro para ponteiro
-            inserir(&((*r)->esq), info);
-        }
-        //Se a raiz não for nula e a informação for maior que a armazenada na raiz
-        //vamos inserir na sub-arvore direira
-        else
-        {
-            inserir(&((*r)->dir), info);
-        }
-    }\
-    */
-
     return r;
+}
+
+Node *remover(Node *r, int matricula)
+{
+	if (r == NULL)
+        return NULL;
+    else if (matricula < r->valor->matricula)
+        r->esquerda = remover(r->esquerda, matricula);
+    else if (matricula > r->valor->matricula)
+        r->direita = remover(r->direita, matricula);
+    else {
+    	// Sem filhos
+    	if (r->esquerda == NULL && r->direita == NULL) {
+            free(r);
+            r = NULL;
+        }
+        // Filho a direita
+        else if (r->esquerda == NULL) {
+            Node *d = r->direita;
+            free(r);
+            r = d;
+        }
+        // Filho a esquerda
+        else if (r->direita == NULL) {
+             Node *e = r->esquerda;
+             free(r);
+             r = e;
+        }
+        // 2 Filhos
+        else {
+            Node* e = r->esquerda;
+            // Encontrar o maior elemento da subárvore esquerda
+            while (e->direita != NULL) {
+                e = e->direita;
+            }
+            // Trocar o maior elemento da esquerda com a raiz
+            Aluno *aux = r->valor;
+            r->valor = e->valor;
+            e->valor = aux;
+            //Agora chamo o método para remover a folha.
+            r->esquerda = remover(r->esquerda, matricula);
+         }
+    }
+    return r;
+}
+
+int altura(Node *r)
+{
+	if(r == NULL)
+    	return 0;
+    int hd = altura(r->direita);
+    int he = altura(r->esquerda);
+    return MAX(he, hd) + 1;
 }
 
 void print_em_ordem(Node *r)
@@ -76,11 +100,4 @@ void print_em_ordem(Node *r)
 		PRINT_ALUNO(r->valor);
 		print_em_ordem(r->direita);
 	}
-	/*
-	if(r != NULL){
-        exibirEmOrdem(r->esq);
-        printf("\n%d", r->info);
-        exibirEmOrdem(r->dir);
-    }
-    */
 }
