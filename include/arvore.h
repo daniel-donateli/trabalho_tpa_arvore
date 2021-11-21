@@ -20,4 +20,6 @@ Node *remover(Node *r, int matricula);
 
 int altura(Node *r);
 
+int num_elementos(Node *r);
+
 void print_em_ordem(Node *r);

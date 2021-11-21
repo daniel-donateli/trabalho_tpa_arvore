@@ -93,6 +93,13 @@ int altura(Node *r)
     return MAX(he, hd) + 1;
 }
 
+int num_elementos(Node *r)
+{
+	if(r == NULL)
+		return 0;
+	return 1 + num_elementos(r->esquerda) + num_elementos(r->direita);
+}
+
 void print_em_ordem(Node *r)
 {
 	if(r != NULL) {

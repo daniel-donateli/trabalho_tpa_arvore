@@ -2,9 +2,9 @@ CFLAGS = -Wall -Wextra -pedantic -O2
 CC = clang
 INCLUDE = ./include
 SRC = ./src
-OBJS=main.o menu.o file_reader.o arvore.o
+OBJS=main.o menu.o file_reader.o arvore.o arvoreAVL.o
 
-.PHONY: all main.o menu.o file_reader.o arvore.o
+.PHONY: all main.o menu.o file_reader.o arvore.o arvoreAVL.o
 
 all: $(OBJS)
 	${CC} ${CFLAGS} -I${INCLUDE} -o main.exe ${OBJS}
@@ -17,6 +17,9 @@ debug: all
 
 clean:
 	-rm -f *.o 
+
+arvoreAVL.o:
+	${CC} ${CFLAGS} -I${INCLUDE} -c ${SRC}/arvoreAVL.c -o arvoreAVL.o
 
 arvore.o:
 	${CC} ${CFLAGS} -I${INCLUDE} -c ${SRC}/arvore.c -o arvore.o
