@@ -1,3 +1,5 @@
+#include <locale.h>
+
 #include <aluno.h>
 #include <arvore.h>
 #include <arvoreAVL.h>
@@ -6,48 +8,27 @@
 
 int main(int argc, char *argv[])
 {
+	setlocale(LC_ALL, "Portuguese");
+
+	Node *arv_bin;
+	Node_AVL *arv_avl;
+	init_arvore(&arv_bin);
+	init_arvore_AVL(&arv_avl);
+
+	FILE *fp = fopen("dados.txt", "r");
+	read_file(fp, &arv_bin, &arv_avl);
+
 	/*
-	Node *raiz;
-	Aluno *a = NULL;
-	init_arvore(&raiz);
+	printf("Árvore Binária:\n");
+	print_em_ordem(arv_bin);
+	printf("Altura: %d\n", altura(arv_bin));
+	printf("Quantidade de elementos: %d\n", num_elementos(arv_bin));
 
-	a = new_aluno(1, "Teste 1", 100);
-	raiz = inserir(raiz, a);
-	
-	a = new_aluno(2, "Teste 2", 100);
-	raiz = inserir(raiz, a);
-	
-	a = new_aluno(3, "Teste 3", 100);
-	raiz = inserir(raiz, a);
-	
-
-	print_em_ordem(raiz);
-	printf("Altura: %d\n", altura(raiz));
-	printf("Quantidade de elementos: %d\n", num_elementos(raiz));
+	printf("Árvore AVL:\n");
+	print_em_ordem_AVL(arv_avl);
+	printf("Altura AVL: %d\n", altura_AVL(arv_avl));
+	printf("Quantidade de elementos AVL: %d\n", num_elementos_AVL(arv_avl));
 	*/
 
-	
-	Node_AVL *raiz_AVL;
-	Aluno *a = NULL;
-	init_arvore_AVL(&raiz_AVL);
-
-	a = new_aluno(3, "Teste 3", 100);
-	raiz_AVL = inserir_AVL(raiz_AVL, a);
-
-	a = new_aluno(2, "Teste 2", 100);
-	raiz_AVL = inserir_AVL(raiz_AVL, a);
-
-	a = new_aluno(1, "Teste 1", 100);
-	raiz_AVL = inserir_AVL(raiz_AVL, a);
-
-	a = pesquisar_AVL(raiz_AVL, 3);
-
-	PRINT_ALUNO(a);
-
-	print_em_ordem_AVL(raiz_AVL);
-	printf("Altura: %d\n", altura_AVL(raiz_AVL));
-	printf("Quantidade de elementos: %d\n", num_elementos_AVL(raiz_AVL));
-	
-
-	return 0;
+	return menu(arv_bin, arv_avl);
 }

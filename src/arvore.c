@@ -77,7 +77,7 @@ Node *remover(Node *r, int matricula)
             Aluno *aux = r->valor;
             r->valor = e->valor;
             e->valor = aux;
-            //Agora chamo o método para remover a folha.
+            // Remover a folha.
             r->esquerda = remover(r->esquerda, matricula);
          }
     }

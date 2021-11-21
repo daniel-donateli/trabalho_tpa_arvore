@@ -2,4 +2,4 @@
 
 #include <file_reader.h>
 
-//int menu(HashFechada *h1, HashFechada *h2);
+int menu(Node *arv_bin, Node_AVL *arv_avl);
