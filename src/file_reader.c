@@ -13,7 +13,11 @@ void read_file(FILE *fp, Node **r, Node_AVL **r_AVL)
 	char nome[50];
 	int matricula;
 	int nota;
+	printf("Lendo arquivo...\n");
+	fflush(stdout);
 	for(i=0; i<qtd; i++) {
+		printf("%d/%d\n", i, qtd);
+		fflush(stdout);
 		fgets(linha, 256, fp);
 		token = strtok(linha, ";");
 		matricula = atoi(token);
@@ -25,6 +29,7 @@ void read_file(FILE *fp, Node **r, Node_AVL **r_AVL)
 		*r = inserir(*r, a);
 		*r_AVL = inserir_AVL(*r_AVL, a);
 	}
+	printf("\nLeitura finalizada.\n");
 	fclose(fp);
 }
 
